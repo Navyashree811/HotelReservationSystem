@@ -7,13 +7,14 @@ import java.util.Comparator;
 import java.util.Optional;
 
 public class HotelReservationSystem {
-	ArrayList<Hotel> myHotelList = new ArrayList<>();
+	ArrayList<Hotel> myHotelList = new ArrayList<>(); 
+	// Add Method
 
 	public void addHotel() {
 
 		Hotel hotel1 = new Hotel("Lakewood", 110, 80, 90, 80, 3);
 
-		Hotel hotel2 = new Hotel("Bridgewood", 160, 110, 60, 50, 4);
+		Hotel hotel2 = new Hotel("Bridgewood", 150, 110, 60, 50, 4);
 
 		Hotel hotel3 = new Hotel("Ridgewood", 220, 100, 150, 40, 5);
 
@@ -32,8 +33,8 @@ public class HotelReservationSystem {
 
 	public void findCheapestHotelOne(String startDateRange, String endDateRange) {
 
-		LocalDate startDate = LocalDate.parse(startDateRange, DateTimeFormatter.ofPattern("dd-MMM-yyyy"));
-		LocalDate endDate = LocalDate.parse(endDateRange, DateTimeFormatter.ofPattern("dd-MMM-yyyy"));
+		LocalDate startDate = LocalDate.parse(startDateRange, DateTimeFormatter.ofPattern("d-MMM-yyyy"));
+		LocalDate endDate = LocalDate.parse(endDateRange, DateTimeFormatter.ofPattern("d-MMM-yyyy"));
 
 		int numberOfDays = endDate.getDayOfMonth() - startDate.getDayOfMonth() + 1;
 		Optional<Hotel> cheapestHotel = this.myHotelList.stream()
@@ -42,9 +43,9 @@ public class HotelReservationSystem {
 		hotel.setHotelName(cheapestHotel.get().getHotelName());
 		hotel.setTotal(cheapestHotel.get().getWeekdayRegularRate() * numberOfDays);
 
-		System.out.println("HotelName :" + hotel.getHotelName());
+		System.out.println("HotelName : " + hotel.getHotelName());
 
-		System.out.println("NumberOfDaysStayed * WeekdayRegularRate :" + hotel.getTotal() + "$");
+		System.out.println("NumberOfDaysStayed * WeekdayRegularRate : " + hotel.getTotal() + "$");
 
 	}
 }
