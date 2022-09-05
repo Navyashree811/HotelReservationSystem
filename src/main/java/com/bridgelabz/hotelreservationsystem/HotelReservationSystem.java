@@ -1,36 +1,50 @@
 package com.bridgelabz.hotelreservationsystem;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.Optional;
 
 public class HotelReservationSystem {
-	static ArrayList<Hotel> HotelsList = new ArrayList<>();
+	ArrayList<Hotel> myHotelList = new ArrayList<>();
 
-	// To view total HotelList
-	public static void view() {
-		for (Hotel i : HotelsList) {
-			System.out.println(i);
+	public void addHotel() {
+
+		Hotel hotel1 = new Hotel("Lakewood", 110, 80, 90, 80, 3);
+
+		Hotel hotel2 = new Hotel("Bridgewood", 160, 110, 60, 50, 4);
+
+		Hotel hotel3 = new Hotel("Ridgewood", 220, 100, 150, 40, 5);
+
+		myHotelList.add(hotel1);
+		myHotelList.add(hotel2);
+		myHotelList.add(hotel3);
+	}
+
+	// Show Method
+	public void showHotelInfo() {
+
+		for (int i = 0; i < myHotelList.size(); i++) {
+			System.out.println(myHotelList.get(i));
 		}
 	}
 
-	public static void main(String[] args) {
+	public void findCheapestHotelOne(String startDateRange, String endDateRange) {
 
-		Hotel hotelName1 = new Hotel();
-		hotelName1.setHotelName("Lakewood");
-		hotelName1.setRatePerDay(110);
-		HotelsList.add(hotelName1);
+		LocalDate startDate = LocalDate.parse(startDateRange, DateTimeFormatter.ofPattern("dd-MMM-yyyy"));
+		LocalDate endDate = LocalDate.parse(endDateRange, DateTimeFormatter.ofPattern("dd-MMM-yyyy"));
 
-		Hotel hotelName2 = new Hotel();
-		hotelName2.setHotelName("Bridgewood");
-		hotelName2.setRatePerDay(160);
-		HotelsList.add(hotelName2);
+		int numberOfDays = endDate.getDayOfMonth() - startDate.getDayOfMonth() + 1;
+		Optional<Hotel> cheapestHotel = this.myHotelList.stream()
+				.sorted(Comparator.comparing(Hotel::getWeekdayRegularRate)).findFirst();
+		Hotel hotel = new Hotel();
+		hotel.setHotelName(cheapestHotel.get().getHotelName());
+		hotel.setTotal(cheapestHotel.get().getWeekdayRegularRate() * numberOfDays);
 
-		Hotel hotelName3 = new Hotel();
-		hotelName3.setHotelName("Ridgewood");
-		hotelName3.setRatePerDay(220);
-		HotelsList.add(hotelName3);
+		System.out.println("HotelName :" + hotel.getHotelName());
 
-		view();
+		System.out.println("NumberOfDaysStayed * WeekdayRegularRate :" + hotel.getTotal() + "$");
 
 	}
-
 }
