@@ -7,7 +7,7 @@ import java.util.Comparator;
 import java.util.Optional;
 
 public class HotelReservationSystem {
-	ArrayList<Hotel> myHotelList = new ArrayList<>(); 
+	ArrayList<Hotel> myHotelList = new ArrayList<>();
 	// Add Method
 
 	public void addHotel() {
@@ -69,4 +69,27 @@ public class HotelReservationSystem {
 		System.out.println("-NumberOfDaysStayed * WeekendRegularRate :" + hotel.getTotal() + "$");
 
 	}
+
+	// Rating
+	public void findCheapestHotelRaitingForRegular(String startDateRange, String endDateRange) {
+
+		LocalDate startDate = LocalDate.parse(startDateRange, DateTimeFormatter.ofPattern("d-MMM-yyyy"));
+		LocalDate endDate = LocalDate.parse(endDateRange, DateTimeFormatter.ofPattern("d-MMM-yyyy"));
+
+		int numberOfDays = endDate.getDayOfMonth() - startDate.getDayOfMonth() + 1;
+
+		Optional<Hotel> cheapestHotel = this.myHotelList.stream()
+				.sorted(Comparator.comparing(Hotel::getWeekendRegularRate)).findFirst();
+
+		Hotel hotel = new Hotel();
+		hotel.setHotelName(cheapestHotel.get().getHotelName());
+		hotel.setTotal(cheapestHotel.get().getWeekendRegularRate() * numberOfDays);
+		hotel.setRating(cheapestHotel.get().getRating());
+
+		System.out.println("-HotelName :" + hotel.getHotelName());
+		System.out.println("-NumberOfDaysStayed * WeekendRegularRate :" + hotel.getTotal() + "$");
+		System.out.println("-Rating :" + hotel.getRating());
+
+	}
+
 }
