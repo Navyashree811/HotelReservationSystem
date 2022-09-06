@@ -12,15 +12,15 @@ public class HotelReservationSystem {
 
 	public void addHotel() {
 
-		Hotel RadissonBlu = new Hotel("Lakewood", 110, 80, 90, 80, 3);
+		Hotel hotel1 = new Hotel("Lakewood", 110, 80, 90, 80, 3);
 
-		Hotel TreeboTrend = new Hotel("Bridgewood", 150, 110, 50, 50, 4);
+		Hotel hotel2 = new Hotel("Bridgewood", 150, 110, 50, 50, 4);
 
-		Hotel CapitolHill = new Hotel("Ridgewood", 220, 100, 150, 40, 5);
+		Hotel hotel3 = new Hotel("Ridgewood", 220, 100, 150, 40, 5);
 
-		myHotelList.add(RadissonBlu);
-		myHotelList.add(TreeboTrend);
-		myHotelList.add(CapitolHill);
+		myHotelList.add(hotel1);
+		myHotelList.add(hotel2);
+		myHotelList.add(hotel3);
 	}
 
 	// Show Method
